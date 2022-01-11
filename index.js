@@ -37,6 +37,7 @@ function onStopClick() {
 function onClearCklick() {
  refs.body.style.backgroundColor = '';
  clearInterval(intervalId);
+ buttonsToggle(false, true);
 }
 
 function changeBgColor() {
