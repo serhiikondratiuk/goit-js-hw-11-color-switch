@@ -11,6 +11,7 @@ const refs = {
  body: document.querySelector('body'),
  startBtn: document.querySelector('[data-action="start"]'),
  stopBtn: document.querySelector('[data-action="stop"]'),
+ clearBtn: document.querySelector('[data-action="clear"]'),
 };
 
 const randomIntegerFromInterval = (min, max) => {
@@ -19,20 +20,31 @@ const randomIntegerFromInterval = (min, max) => {
 
 refs.startBtn.addEventListener('click', onStartClick);
 refs.stopBtn.addEventListener('click', onStopClick);
+refs.clearBtn.addEventListener('click', onClearCklick);
 
 let intervalId = null;
 
-function onStartClick(e) {
- e.target.disabled = true;
- intervalId = setInterval(changeBGColor, 1000);
+function onStartClick() {
+ buttonsToggle(true, false);
+ intervalId = setInterval(changeBgColor, 1000);
 }
 
 function onStopClick() {
  clearInterval(intervalId);
- refs.startBtn.disabled = false;
+ buttonsToggle(false, true);
 }
 
-function changeBGColor() {
+function onClearCklick() {
+ refs.body.style.backgroundColor = '';
+ clearInterval(intervalId);
+}
+
+function changeBgColor() {
  const randomColor = randomIntegerFromInterval(0, colors.length - 1);
  refs.body.style.backgroundColor = colors[randomColor];
+}
+
+function buttonsToggle(enable, disable) {
+ refs.startBtn.disabled = enable;
+ refs.stopBtn.disabled = disable;
 }
